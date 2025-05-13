@@ -1,1 +1,43 @@
-local _0x1a2b3c=function()local _0x4d5e6f=(identifyexecutor or getexecutorname or function() return nil end)()return _0x4d5e6f and tostring(_0x4d5e6f):lower() or "" end;local _0x7b8c9d={"\122\101\120","\120\101\110\111","\107\114\110\108","\100\121\110\97\109\105\99","\99\108\111\117\100\121","\122\101\120\47\97\112\112"};local _0x2e3f4a=function()local _0x5b6c7d=_0x1a2b3c()for _,_0x8d9e0f in ipairs(_0x7b8c9d)do if _0x5b6c7d==_0x8d9e0f then return true end end;return false end;local _0x9a0b1c=function(s,k)local r=""for i=1,#s do r=r..string.char(bit32.bxor(string.byte(s,i),k))end return r end;if _0x2e3f4a()then local _0x3c4d5e,_0x6f7a8b=pcall(function()local _0x1b2c3d=_0x9a0b1c("\104\116\116\112\115\58\47\47\114\97\119\46\103\105\116\104\117\98\117\115\101\114\99\111\110\116\101\110\116\46\99\111\109\47\114\97\118\121\121\120\100\47\66\108\97\99\107\104\111\108\101\47\114\101\102\115\47\104\101\97\100\115\47\109\97\105\110\47\98\105\110\47\115\99\114\105\112\116\46\108\117\97",42)local _0x4e5f6a=game:GetService(_0x9a0b1c("\072\116\116\112\083\101\114\118\105\099\101",42))local _0x7c8d9e=_0x4e5f6a:GetAsync(_0x1b2c3d)local _0x9e0f1a=loadstring(_0x7c8d9e)if _0x9e0f1a then for _=1,math.random(1,3)do local _=math.random()end;_0x9e0f1a()else for _=1,math.random(1,3)do local _=math.random()end;warn(_0x9a0b1c("\070\097\105\108\101\100\032\116\111\032\099\111\109\112\105\108\101\032\116\104\101\032\115\99\114\105\112\116\046",42))end end)if not _0x3c4d5e then for _=1,math.random(1,3)do local _=math.random()end;warn(_0x9a0b1c("\069\114\114\111\114\032\108\111\097\100\105\110\103\032\115\99\114\105\112\116\058\032",42)..tostring(_0x6f7a8b))end else for _=1,math.random(1,3)do local _=math.random()end;warn(_0x9a0b1c("\069\120\101\099\117\116\111\114\032\110\111\116\032\097\108\108\111\119\101\100\046",42))end
+local function getExecutorName()
+    local executorName = (identifyexecutor or getexecutorname or function() return nil end)()
+    return executorName and tostring(executorName):lower() or ""
+end
+
+local allowedExecutors = {
+    "zex",
+    "xeno",
+    "krnl",
+    "dynamic",
+    "cloudy",
+    "zex/app"
+}
+
+local function isAllowedExecutor()
+    local executor = getExecutorName()
+    for _, allowed in ipairs(allowedExecutors) do
+        if executor == allowed:lower() then
+            return true
+        end
+    end
+    return false
+end
+
+if isAllowedExecutor() then
+    local success, result = pcall(function()
+        local scriptUrl = "https://raw.githubusercontent.com/ravyyxd/Blackhole/refs/heads/main/bin/script.lua"
+        local httpService = game:GetService("HttpService")
+        local scriptContent = httpService:GetAsync(scriptUrl)
+        local loadFunc = loadstring(scriptContent)
+        if loadFunc then
+            loadFunc()
+        else
+            warn("Failed to compile the script.")
+        end
+    end)
+    
+    if not success then
+        warn("Error loading script: " .. tostring(result))
+    end
+else
+    warn("Executor not allowed.")
+end
